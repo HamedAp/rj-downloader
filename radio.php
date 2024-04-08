@@ -39,3 +39,7 @@ if (str_contains($url, "radiojavan.com/video")) {
   echo '<a href="' . $playlistitems["hq_link"] . '">High</a><br>';
   echo '<a href="' . $playlistitems["hd_4k_link"] . '">4K</a><br>';
 }
+if (str_contains($url, "radiojavan.com/podcast")) {
+  $playlistitems = $array["props"]["pageProps"]["media"];
+  echo '<a href="' . $playlistitems["link"] . '">' . $playlistitems["title"] . '</a><br>';
+}
