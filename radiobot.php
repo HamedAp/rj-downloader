@@ -17,9 +17,7 @@ file_get_contents("https://api.telegram.org/bot" . $API . "/sendChatAction?chat_
 //////////////
 if (str_contains($chattext, "/start")) {
     file_get_contents("https://api.telegram.org/bot" . $API . "/sendmessage?chat_id=" . $chatID . "&text=لطفا لینک پادکست یا آهنگ یا ریمیکس را ارسال کنین ");
-}
-//////////////
-if (str_contains($chattext, "play.radiojavan.com") || str_contains($chattext, "rj.app/")) {
+}else if (str_contains($chattext, "play.radiojavan.com") || str_contains($chattext, "rj.app/")) {
     if (str_contains($chattext, "rj.app/")) {
         $chattext = str_replace("rj.app", "play.radiojavan.com", $chattext);
     }
