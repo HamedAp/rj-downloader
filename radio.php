@@ -20,26 +20,26 @@ preg_match("/$start(.*?)$end/", $response, $matches);
 $json = json_encode(json_decode($matches[1]), JSON_PRETTY_PRINT);
 $array = json_decode($json, true);
 ///
-if (str_contains($url, "radiojavan.com/song")) {
+if (strpos($url, "radiojavan.com/song") !== false) {
   $playlistitems = $array["props"]["pageProps"]["media"];
   echo '<a href="' . $playlistitems["link"] . '">' . $playlistitems["song"] . '</a><br>';
 }
 ///
-if (str_contains($url, "radiojavan.com/playlist")) {
+if (strpos($url, "radiojavan.com/playlist") !== false) {
   $playlistitems = $array["props"]["pageProps"]["playlist"]["items"];
   foreach ($playlistitems as $item) {
     echo '<a href="' . $item["link"] . '">' . $item["song"] . '</a><br>';
   }
 }
 ///
-if (str_contains($url, "radiojavan.com/video")) {
+if (strpos($url, "radiojavan.com/video") !== false) {
   $playlistitems = $array["props"]["pageProps"]["media"];
   echo $playlistitems["song"] . "<br>";
   echo '<a href="' . $playlistitems["lq_link"] . '">Low</a><br>';
   echo '<a href="' . $playlistitems["hq_link"] . '">High</a><br>';
   echo '<a href="' . $playlistitems["hd_4k_link"] . '">4K</a><br>';
 }
-if (str_contains($url, "radiojavan.com/podcast")) {
+if (strpos($url, "radiojavan.com/podcast") !== false) {
   $playlistitems = $array["props"]["pageProps"]["media"];
   echo '<a href="' . $playlistitems["link"] . '">' . $playlistitems["title"] . '</a><br>';
 }
