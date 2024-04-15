@@ -15,10 +15,10 @@ $chattext = $update["message"]["text"];
 $newline = urlencode("\n");
 file_get_contents("https://api.telegram.org/bot" . $API . "/sendChatAction?chat_id=" . $chatID . "&action=typing");
 //////////////
-if (str_contains($chattext, "/start")) {
+if (strpos($chattext, "/start") !== false) {
     file_get_contents("https://api.telegram.org/bot" . $API . "/sendmessage?chat_id=" . $chatID . "&text=لطفا لینک پادکست یا آهنگ یا ریمیکس را ارسال کنین ");
-}else if (str_contains($chattext, "play.radiojavan.com") || str_contains($chattext, "rj.app/")) {
-    if (str_contains($chattext, "rj.app/")) {
+} else if (strpos($chattext, "play.radiojavan.com") !== false || strpos($chattext, "rj.app/") !== false) {
+    if (strpos($chattext, "rj.app/") !== false) {
         $chattext = str_replace("rj.app", "play.radiojavan.com", $chattext);
     }
     $ch = curl_init();
@@ -37,19 +37,19 @@ if (str_contains($chattext, "/start")) {
     $json = json_encode(json_decode($matches[1]), JSON_PRETTY_PRINT);
     $array = json_decode($json, true);
     /////////////////////////////////////////////////////////////////
-    if (str_contains($url, "radiojavan.com/song") || str_contains($url, "radiojavan.com/m")) {
+    if (strpos($url, "radiojavan.com/song") !== false || strpos($url, "radiojavan.com/m") !== false) {
         $playlistitems = $array["props"]["pageProps"]["media"];
         file_get_contents("https://api.telegram.org/bot" . $API . "/sendAudio?chat_id=" . $chatID . "&audio=" . $playlistitems["link"] . "&caption=" . $playlistitems["link"]);
     }
     ///
-    if (str_contains($url, "radiojavan.com/playlist") || str_contains($url, "radiojavan.com/pm")) {
+    if (strpos($url, "radiojavan.com/playlist") !== false || strpos($url, "radiojavan.com/pm") !== false) {
         $playlistitems = $array["props"]["pageProps"]["playlist"]["items"];
         foreach ($playlistitems as $item) {
             file_get_contents("https://api.telegram.org/bot" . $API . "/sendAudio?chat_id=" . $chatID . "&audio=" . $item["link"] . "&caption=" . $item["link"]);
         }
     }
     ///
-    if (str_contains($url, "radiojavan.com/podcast") || str_contains($url, "radiojavan.com/p/")) {
+    if (strpos($url, "radiojavan.com/podcast") !== false || strpos($url, "radiojavan.com/p/") !== false) {
         $playlistitems = $array["props"]["pageProps"]["media"];
         file_get_contents("https://api.telegram.org/bot" . $API . "/sendmessage?chat_id=" . $chatID . "&text=" . $playlistitems["link"]);
         file_get_contents("https://api.telegram.org/bot" . $API . "/sendmessage?chat_id=" . $chatID . "&text=به دلیل بالا بودن حجم فایل و محدودیت تلگرام از ارسال پادکست به صورت فایل معذوریم");
